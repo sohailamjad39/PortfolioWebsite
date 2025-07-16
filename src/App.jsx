@@ -4,6 +4,8 @@ import Background from "./components/background";
 import Navbar from "./components/navbar";
 import HeroSection from "./components/HeroSection";
 import OrbitSection from "./components/OrbitSection";
+import FakeScroll from "./components/FakeScroll";
+import ServicesSection from "./components/ServicesSection";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Navbar />
         <HeroSection />
         <OrbitSection/>
+        <ServicesSection/>
+        <FakeScroll/>
     </>
   );
 }

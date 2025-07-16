@@ -17,18 +17,23 @@ function OrbitSection() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 40%",
-        end: "bottom 30%",
+        start: "top 50%",
+        end: "bottom 70%", // animate out when this section is scrolled past 70%
         toggleActions: "play reverse play reverse",
         scrub: false,
-        once: false,
         markers: false,
+        once: false,
       },
     });
 
     // Animate orbit system (sun + planets)
     tl.fromTo(
-      [sunRef.current, planet1Ref.current, planet2Ref.current, planet3Ref.current],
+      [
+        sunRef.current,
+        planet1Ref.current,
+        planet2Ref.current,
+        planet3Ref.current,
+      ],
       {
         scale: 0.5,
         autoAlpha: 0,
@@ -42,15 +47,17 @@ function OrbitSection() {
       }
     );
 
-    // Smooth fade-in + move-up for heading
+    // Heading animation
     tl.fromTo(
       textHeadingRef.current,
       {
         y: 30,
+        opacity: 0,
         autoAlpha: 0,
       },
       {
         y: 0,
+        opacity: 1,
         autoAlpha: 1,
         duration: 1,
         ease: "power2.out",
@@ -58,15 +65,17 @@ function OrbitSection() {
       "<+0.4"
     );
 
-    // Smooth fade-in + move-up for paragraph, delayed slightly
+    // Paragraph animation
     tl.fromTo(
       textParagraphRef.current,
       {
         y: 30,
+        opacity: 0,
         autoAlpha: 0,
       },
       {
         y: 0,
+        opacity: 1,
         autoAlpha: 1,
         duration: 1,
         ease: "power2.out",
@@ -114,7 +123,7 @@ function OrbitSection() {
       ease: orbitEase,
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 70%",
+        start: "top 50%",
         toggleActions: "play pause resume pause",
         once: false,
       },
@@ -149,9 +158,11 @@ function OrbitSection() {
       <div className="orbit-text">
         <h2 ref={textHeadingRef}>What I Can Do</h2>
         <p ref={textParagraphRef}>
-          I bring all parts of a web application together — from what users see to how it all works behind the scenes.
-          Whether it's building clean user interfaces, managing powerful servers, or connecting everything through smart APIs — I make it work as one smooth system.
-          Frontend, Backend, or the logic in between — I orbit around the full stack.
+          I bring all parts of a web application together — from what users see
+          to how it all works behind the scenes. Whether it's building clean
+          user interfaces, managing powerful servers, or connecting everything
+          through smart APIs — I make it work as one smooth system. <br /> <br /> Frontend,
+          Backend, or the logic in between — I orbit around the full stack.
         </p>
       </div>
     </div>

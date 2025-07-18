@@ -49,6 +49,8 @@ function Navbar() {
           <li><a href="#services" className="tc-dark">Services</a></li>
           <span className="dot-separator"></span>
           <li><a href="#projects" className="tc-dark">Projects</a></li>
+          <span className="dot-separator"></span>
+          <li><a href="#contact" className="tc-dark">Contact</a></li>
         </ul>
       </div>
 

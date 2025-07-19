@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useLenis from "../hooks/useLenis";
+import OrbitSection from "./OrbitSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,19 +40,22 @@ function HeroSection() {
       const isEndOfTyping = charIndex === currentTitle.length && !isDeleting;
       const isEndOfErasing = charIndex === 0 && isDeleting;
 
-      const timeout = setTimeout(() => {
-        if (!isDeleting && !isEndOfTyping) {
-          setCharIndex(charIndex + 1);
-        } else if (isEndOfTyping) {
-          setIsDeleting(true);
-        } else if (isDeleting && isEndOfErasing) {
-          setIsDeleting(false);
-          setTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
-          setCharIndex(0);
-        } else if (isDeleting) {
-          setCharIndex(charIndex - 1);
-        }
-      }, isDeleting ? 30 : isEndOfTyping ? 1200 : 100);
+      const timeout = setTimeout(
+        () => {
+          if (!isDeleting && !isEndOfTyping) {
+            setCharIndex(charIndex + 1);
+          } else if (isEndOfTyping) {
+            setIsDeleting(true);
+          } else if (isDeleting && isEndOfErasing) {
+            setIsDeleting(false);
+            setTitleIndex((prevIndex) => (prevIndex + 1) % titles.length);
+            setCharIndex(0);
+          } else if (isDeleting) {
+            setCharIndex(charIndex - 1);
+          }
+        },
+        isDeleting ? 30 : isEndOfTyping ? 1200 : 100
+      );
 
       return () => clearTimeout(timeout);
     };
@@ -96,29 +100,32 @@ function HeroSection() {
   }, []);
 
   return (
-    <div className="sec-one-cont">
-      <div className="about-cont" ref={aboutContRef}>
-        <p className="dot-separated">
-          <span className="underlined">
-            Minimal <span className="dot"></span> Mythical
-            <span className="dot"></span> Mine
-          </span>
-        </p>
-        <p className="myName">
-          Hey, I'm <strong>Sohail</strong>
-          <span className="dot"></span>
-          <span className="typing">{typingText}</span>
-        </p>
-        <div className="tag-lines">
-          <p className="tag-line">I don't just build websites —</p>
-          <p className="tag-line">I build consciousness in code.</p>
+    <>
+      <section className="sec-one-cont" id="about">
+        <div className="about-cont" ref={aboutContRef}>
+          <p className="dot-separated">
+            <span className="underlined">
+              Minimal <span className="dot"></span> Mythical
+              <span className="dot"></span> Mine
+            </span>
+          </p>
+          <p className="myName">
+            Hey, I'm <strong>Sohail</strong>
+            <span className="dot"></span>
+            <span className="typing">{typingText}</span>
+          </p>
+          <div className="tag-lines">
+            <p className="tag-line">I don't just build websites —</p>
+            <p className="tag-line">I build consciousness in code.</p>
+          </div>
         </div>
-      </div>
 
-      <div className="robo-cont" ref={roboContRef}>
-        <img src="../../robo.png" className="robo" alt="Robot" />
-      </div>
-    </div>
+        <div className="robo-cont" ref={roboContRef}>
+          <img src="../../robo.png" className="robo" alt="Robot" />
+        </div>
+        <OrbitSection />
+      </section>
+    </>
   );
 }
 

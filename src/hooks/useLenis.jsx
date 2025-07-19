@@ -10,7 +10,7 @@ export default function useLenis() {
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
-      mouseMultiplier: 0.5, // slows down mouse wheel scroll
+      mouseMultiplier: 0.6, // slows down mouse wheel scroll
       touchMultiplier: 1.5, // controls touch scroll speed
       infinite: false,
     });

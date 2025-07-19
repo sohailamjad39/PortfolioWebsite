@@ -63,7 +63,7 @@ function ProjectSection() {
   }, []);
 
   return (
-    <section className="project-section" ref={sectionRef}>
+    <section id="projects" className="project-section" ref={sectionRef}>
       <h1 className="project-heading" ref={headingRef}>
         Projects
       </h1>
@@ -71,18 +71,18 @@ function ProjectSection() {
       <div className="project-card-container">
         <ProjectCard
           ref={(el) => (cardRefs.current[0] = el)}
-          projectName="Project 1"
-          projectDesc="This is a sample project description. It should animate in smoothly."
-          projectImg="https://picsum.photos/id/1018/400/300 "
-          projectLink="https://github.com "
+          projectName="EduTrackon"
+          projectDesc="EduTrackon is a smart web app that marks student attendance using face recognition. Built with JavaScript and Node.js, it includes an admin panel and student portal to track attendance and academic progress easily."
+          projectImg="edutrackon.jpeg"
+          projectLink="https://github.com/sohailamjad39/Student-Face-Recognition-Web-App "
         />
 
         <ProjectCard
           ref={(el) => (cardRefs.current[1] = el)}
-          projectName="Project 2"
-          projectDesc="This is another sample project description. It should animate in smoothly after the first one."
-          projectImg="https://picsum.photos/id/1015/400/300 "
-          projectLink="https://github.com "
+          projectName="SkyBook"
+          projectDesc="An easy-to-use web app where users can search flights, book tickets, and manage bookings online. It includes admin control, user login, and a database-powered backend to handle flights, passengers, and payments."
+          projectImg="skybook.png"
+          projectLink="https://github.com/sohailamjad39/AirlineTicketBookingSystem"
         />
       </div>
     </section>

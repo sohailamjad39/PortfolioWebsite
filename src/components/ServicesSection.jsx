@@ -79,7 +79,7 @@ const ServicesSection = () => {
 
   return (
     <>
-      <section className="services-section" ref={containerRef}>
+      <section id="services" className="services-section" ref={containerRef}>
         <h2 className="services-heading" ref={headingRef}>
           Services I Provide
         </h2>

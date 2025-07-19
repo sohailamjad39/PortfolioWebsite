@@ -158,7 +158,7 @@ function OrbitSection() {
       <div className="orbit-text">
         <h2 ref={textHeadingRef}>What I Can Do</h2>
         <p ref={textParagraphRef}>
-          I bring all parts of a web application together — from what users see
+          I bring all parts of an application together — from what users see
           to how it all works behind the scenes. Whether it's building clean
           user interfaces, managing powerful servers, or connecting everything
           through smart APIs — I make it work as one smooth system. <br /> <br /> Frontend,

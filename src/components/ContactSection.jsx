@@ -67,6 +67,7 @@ function ContactSection() {
 
   return (
     <section className="contact-section" id="contact">
+      <div className="contact-wrapper">
       <div className="contact-left" ref={leftRef}>
         <h1>You Think It,</h1>
         <h1>I Build It</h1>
@@ -89,6 +90,7 @@ function ContactSection() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

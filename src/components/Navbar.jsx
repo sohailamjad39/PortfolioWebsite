@@ -1,43 +1,87 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 function Navbar() {
   const hamburgerRef = useRef(null);
   const navsRef = useRef(null);
   const navLinksRef = useRef([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Get system theme preference
+  const getSystemTheme = () => {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+
+  // Toggle dark/light mode
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    updateDocumentClass(newMode);
+  };
+
+  // Utility to update document class
+  const updateDocumentClass = (isDark) => {
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  };
+
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    const hamburger = hamburgerRef.current;
+    const navs = navsRef.current;
+    if (hamburger && navs) {
+      hamburger.classList.toggle('active');
+      navs.classList.toggle('active');
+    }
+  };
 
   // Scroll to section and set active link
   const handleNavClick = (e, id) => {
     e.preventDefault();
 
-    // Remove active from all links
     navLinksRef.current.forEach(link => link.classList.remove('active'));
 
-    // Add active to clicked link
     const clickedLink = e.target;
     clickedLink.classList.add('active');
 
-    // Close mobile menu
-    if (hamburgerRef.current && navsRef.current) {
-      hamburgerRef.current.classList.remove('active');
-      navsRef.current.classList.remove('active');
+    const hamburger = hamburgerRef.current;
+    const navs = navsRef.current;
+
+    if (hamburger && navs) {
+      hamburger.classList.remove('active');
+      navs.classList.remove('active');
     }
 
-    // Delay scroll slightly to allow layout stabilization
-    setTimeout(() => {
-      const targetSection = document.querySelector(id);
-      if (targetSection) {
-        // Force reflow to ensure correct offset
-        void targetSection.offsetHeight;
-
+    const targetId = id;
+    let attempts = 0;
+    const tryScroll = () => {
+      const targetSection = document.querySelector(targetId);
+      if (targetSection && targetSection.offsetTop > 0) {
         window.scrollTo({
           top: targetSection.offsetTop,
           behavior: 'smooth',
         });
+      } else if (attempts < 50) {
+        attempts++;
+        setTimeout(tryScroll, 30);
+      } else {
+        const fallbackSection = document.querySelector(targetId);
+        if (fallbackSection) {
+          window.scrollTo({
+            top: fallbackSection.offsetTop,
+            behavior: 'smooth',
+          });
+        }
       }
-    }, 30); // Small delay helps avoid layout issues
+    };
+
+    tryScroll();
   };
 
-  // Set active link based on current scroll position
+  // Set active link based on scroll
   const handleScroll = () => {
     const sections = document.querySelectorAll('section[id]');
     const scrollY = window.scrollY;
@@ -48,14 +92,8 @@ function Navbar() {
       const id = section.getAttribute('id');
       const navLink = document.querySelector(`.navs a[href="#${id}"]`);
 
-      if (
-        scrollY >= sectionTop - 100 &&
-        scrollY < sectionTop + sectionHeight
-      ) {
-        // Remove active from all
+      if (scrollY >= sectionTop - 100 && scrollY < sectionTop + sectionHeight) {
         navLinksRef.current.forEach(link => link.classList.remove('active'));
-
-        // Add active to current
         if (navLink) {
           navLink.classList.add('active');
         }
@@ -67,15 +105,23 @@ function Navbar() {
     const hamburger = hamburgerRef.current;
     const navs = navsRef.current;
 
-    if (!hamburger || !navs) return;
+    // Load saved theme or fallback to system theme
+    const savedTheme = localStorage.getItem('theme');
+    let initialTheme;
 
-    // Toggle mobile menu
-    const toggleMenu = () => {
-      hamburger.classList.toggle('active');
-      navs.classList.toggle('active');
-    };
+    if (savedTheme === 'dark' || savedTheme === 'light') {
+      initialTheme = savedTheme === 'dark';
+    } else {
+      initialTheme = getSystemTheme();
+    }
 
-    hamburger.addEventListener('click', toggleMenu);
+    setIsDarkMode(initialTheme);
+    updateDocumentClass(initialTheme);
+
+    // Attach hamburger click event immediately
+    if (hamburger) {
+      hamburger.addEventListener('click', toggleMenu);
+    }
 
     // Handle nav link clicks
     const navLinks = document.querySelectorAll('.navs a');
@@ -93,14 +139,14 @@ function Navbar() {
 
     // Scroll handler
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Trigger on mount
+    handleScroll();
 
     // Cleanup
     return () => {
-      hamburger.removeEventListener('click', toggleMenu);
-      navLinks.forEach(link => {
-        link.removeEventListener('click', closeMenu);
-      });
+      if (hamburger) {
+        hamburger.removeEventListener('click', toggleMenu);
+      }
+      navLinks.forEach(link => link.removeEventListener('click', closeMenu));
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
@@ -121,8 +167,10 @@ function Navbar() {
         </ul>
       </div>
 
-      <div className="switch-mode-btn" id="modeToggle">
-        <span className="bi--moon-stars"></span>
+      <div className="switch-mode-btn" id="modeToggle" onClick={toggleDarkMode}>
+        <span className="moon">
+          <img src={isDarkMode ? "sun.svg" : "moon.svg"} alt={isDarkMode ? "Light Mode" : "Dark Mode"} />
+        </span>
       </div>
 
       <div className="hamburger" id="hamburger" ref={hamburgerRef}>

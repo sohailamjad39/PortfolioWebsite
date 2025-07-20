@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sohail Stack</title>
   </head>
+  <script>
+    // Try to get saved theme or fallback to system preference
+    const savedTheme = localStorage.getItem("theme");
+    const isSystemDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const initialTheme =
+      savedTheme === "dark" || (!savedTheme && isSystemDark) ? "dark" : "light";
+
+    // Set the theme class on <body>
+    if (initialTheme === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

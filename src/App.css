@@ -1223,6 +1223,11 @@ a {
   .navbar {
     gap: 10px;
   }
+  
+  .logo span {
+    height: 6vh;    
+    width: 6vw;
+  }
 
   /* Hamburger -> X Animation */
   .hamburger.active span:nth-child(1) {

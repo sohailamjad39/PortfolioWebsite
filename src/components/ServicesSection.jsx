@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, forwardRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import SkillIcons from "./SkillIcons";
+import TickerTape from "./TickerTape"; // Update the import path if needed
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,7 +9,7 @@ const ServicesSection = () => {
   const containerRef = useRef(null);
   const headingRef = useRef(null);
   const serviceRefs = useRef([]);
-  const skillIconsRef = useRef(null); // Ref for SkillIcons
+  const tickerTapeRef = useRef(null); // Ref for TickerTape
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -58,10 +58,10 @@ const ServicesSection = () => {
       );
     });
 
-    // Animate SkillIcons at the same time
-    if (skillIconsRef.current) {
+    // Animate TickerTape at the same time
+    if (tickerTapeRef.current) {
       tl.fromTo(
-        skillIconsRef.current,
+        tickerTapeRef.current,
         {
           opacity: 0,
           y: 20,
@@ -132,8 +132,8 @@ const ServicesSection = () => {
         </div>
       </section>
 
-      {/* Pass ref to SkillIcons */}
-      <SkillIcons ref={skillIconsRef} />
+      {/* Replace SkillIcons with TickerTape */}
+      <TickerTape ref={tickerTapeRef} />
     </>
   );
 };

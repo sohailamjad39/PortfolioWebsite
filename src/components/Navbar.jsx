@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from "react";
 
 function Navbar() {
   const hamburgerRef = useRef(null);
@@ -8,23 +8,26 @@ function Navbar() {
 
   // Get system theme preference
   const getSystemTheme = () => {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
   };
 
   // Toggle dark/light mode
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    localStorage.setItem("theme", newMode ? "dark" : "light");
     updateDocumentClass(newMode);
   };
 
   // Utility to update document class
   const updateDocumentClass = (isDark) => {
     if (isDark) {
-      document.body.classList.add('dark');
+      document.body.classList.add("dark");
     } else {
-      document.body.classList.remove('dark');
+      document.body.classList.remove("dark");
     }
   };
 
@@ -33,8 +36,8 @@ function Navbar() {
     const hamburger = hamburgerRef.current;
     const navs = navsRef.current;
     if (hamburger && navs) {
-      hamburger.classList.toggle('active');
-      navs.classList.toggle('active');
+      hamburger.classList.toggle("active");
+      navs.classList.toggle("active");
     }
   };
 
@@ -42,17 +45,17 @@ function Navbar() {
   const handleNavClick = (e, id) => {
     e.preventDefault();
 
-    navLinksRef.current.forEach(link => link.classList.remove('active'));
+    navLinksRef.current.forEach((link) => link.classList.remove("active"));
 
     const clickedLink = e.target;
-    clickedLink.classList.add('active');
+    clickedLink.classList.add("active");
 
     const hamburger = hamburgerRef.current;
     const navs = navsRef.current;
 
     if (hamburger && navs) {
-      hamburger.classList.remove('active');
-      navs.classList.remove('active');
+      hamburger.classList.remove("active");
+      navs.classList.remove("active");
     }
 
     const targetId = id;
@@ -62,7 +65,7 @@ function Navbar() {
       if (targetSection && targetSection.offsetTop > 0) {
         window.scrollTo({
           top: targetSection.offsetTop,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       } else if (attempts < 50) {
         attempts++;
@@ -72,7 +75,7 @@ function Navbar() {
         if (fallbackSection) {
           window.scrollTo({
             top: fallbackSection.offsetTop,
-            behavior: 'smooth',
+            behavior: "smooth",
           });
         }
       }
@@ -81,21 +84,50 @@ function Navbar() {
     tryScroll();
   };
 
+  // Scroll to About section when logo is clicked
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    const id = "#about";
+
+    navLinksRef.current.forEach((link) => link.classList.remove("active"));
+
+    const aboutLink = document.querySelector(`.navs a[href="#about"]`);
+    if (aboutLink) {
+      aboutLink.classList.add("active");
+    }
+
+    let attempts = 0;
+    const tryScroll = () => {
+      const targetSection = document.querySelector(id);
+      if (targetSection && targetSection.offsetTop > 0) {
+        window.scrollTo({
+          top: targetSection.offsetTop,
+          behavior: "smooth",
+        });
+      } else if (attempts < 50) {
+        attempts++;
+        setTimeout(tryScroll, 30);
+      }
+    };
+
+    tryScroll();
+  };
+
   // Set active link based on scroll
   const handleScroll = () => {
-    const sections = document.querySelectorAll('section[id]');
+    const sections = document.querySelectorAll("section[id]");
     const scrollY = window.scrollY;
 
-    sections.forEach(section => {
+    sections.forEach((section) => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
-      const id = section.getAttribute('id');
+      const id = section.getAttribute("id");
       const navLink = document.querySelector(`.navs a[href="#${id}"]`);
 
       if (scrollY >= sectionTop - 100 && scrollY < sectionTop + sectionHeight) {
-        navLinksRef.current.forEach(link => link.classList.remove('active'));
+        navLinksRef.current.forEach((link) => link.classList.remove("active"));
         if (navLink) {
-          navLink.classList.add('active');
+          navLink.classList.add("active");
         }
       }
     });
@@ -106,11 +138,11 @@ function Navbar() {
     const navs = navsRef.current;
 
     // Load saved theme or fallback to system theme
-    const savedTheme = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem("theme");
     let initialTheme;
 
-    if (savedTheme === 'dark' || savedTheme === 'light') {
-      initialTheme = savedTheme === 'dark';
+    if (savedTheme === "dark" || savedTheme === "light") {
+      initialTheme = savedTheme === "dark";
     } else {
       initialTheme = getSystemTheme();
     }
@@ -120,56 +152,93 @@ function Navbar() {
 
     // Attach hamburger click event immediately
     if (hamburger) {
-      hamburger.addEventListener('click', toggleMenu);
+      hamburger.addEventListener("click", toggleMenu);
     }
 
     // Handle nav link clicks
-    const navLinks = document.querySelectorAll('.navs a');
+    const navLinks = document.querySelectorAll(".navs a");
     navLinksRef.current = [...navLinks];
 
     const closeMenu = (e) => {
-      e.preventDefault();
-      const id = e.target.getAttribute('href');
+      const id = e.target.getAttribute("href");
       handleNavClick(e, id);
     };
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', closeMenu);
+    navLinks.forEach((link) => {
+      link.addEventListener("click", closeMenu);
     });
 
+    // Logo click handler
+    const logo = document.querySelector(".logo");
+    if (logo) {
+      logo.addEventListener("click", handleLogoClick);
+    }
+
     // Scroll handler
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
 
     // Cleanup
     return () => {
       if (hamburger) {
-        hamburger.removeEventListener('click', toggleMenu);
+        hamburger.removeEventListener("click", toggleMenu);
       }
-      navLinks.forEach(link => link.removeEventListener('click', closeMenu));
-      window.removeEventListener('scroll', handleScroll);
+      navLinks.forEach((link) => link.removeEventListener("click", closeMenu));
+      window.removeEventListener("scroll", handleScroll);
+      if (logo) {
+        logo.removeEventListener("click", handleLogoClick);
+      }
     };
   }, []);
 
   return (
-    <div className="navbar">
-      <div className="logo">LOGO</div>
+    <div className="navbar fixed-navbar">
+      <div
+        className="logo"
+        onClick={handleLogoClick}
+        role="button"
+        tabIndex="0"
+        aria-label="Go to About section"
+      >
+        <span>
+          <img src={isDarkMode ? "logo-dark.svg" : "logo.svg"} alt="LOGO" />
+        </span>
+      </div>
 
       <div className="navs" id="navs" ref={navsRef}>
         <ul>
-          <li><a href="#about" className="tc-dark">About</a></li>
+          <li>
+            <a href="#about" className="tc-dark">
+              About
+            </a>
+          </li>
           <span className="dot-separator"></span>
-          <li><a href="#services" className="tc-dark">Services</a></li>
+          <li>
+            <a href="#services" className="tc-dark">
+              Services
+            </a>
+          </li>
           <span className="dot-separator"></span>
-          <li><a href="#projects" className="tc-dark">Projects</a></li>
+          <li>
+            <a href="#projects" className="tc-dark">
+              Projects
+            </a>
+          </li>
           <span className="dot-separator"></span>
-          <li><a href="#contact" className="tc-dark">Contact</a></li>
+          <li>
+            <a href="#contact" className="tc-dark">
+              Contact
+            </a>
+          </li>
         </ul>
       </div>
 
       <div className="switch-mode-btn" id="modeToggle" onClick={toggleDarkMode}>
         <span className="moon">
-          <img src={isDarkMode ? "sun.svg" : "moon.svg"} alt={isDarkMode ? "Light Mode" : "Dark Mode"} />
+          <img
+            src={isDarkMode ? "sun.svg" : "moon.svg"}
+            alt={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          />
         </span>
       </div>
 

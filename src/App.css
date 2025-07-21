@@ -186,18 +186,22 @@ a {
 }
 
 .logo {
-  font-size: medium;
-  font-weight: bold;
-  letter-spacing: 2px;
+  height: 2vh;
+  width: auto;
+}
+
+.logo span {
   cursor: pointer;
-  text-shadow: 0 0 5px #9b9b9b, 0 0 10px #656565, 0 0 20px #4b4b4b;
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  display: inline-block;
+  height: 2vh;    
+  width: 2vw;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .logo:hover {
   transform: scale(1.1);
-  text-shadow: 0 0 10px #9b9b9b, 0 0 20px #656565, 0 0 30px #4b4b4b,
-    0 0 40px #3c3c3c;
 }
 
 .hamburger {
@@ -672,24 +676,6 @@ a {
     brightness(20%) contrast(104%);
 }
 
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes scrollLeft {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
 .project-section {
   padding: 20vh 3vw 10vh 3vw;
   text-align: center;
@@ -924,7 +910,46 @@ a {
   filter: none;
 }
 
+.back-to-top {
+  position: relative;
+  margin: 40px auto 20px;
+  display: block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  color: #10002b;
+  background: transparent;
+  border: 1px solid #10002b;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  text-align: center;
+}
 
+.back-to-top:hover {
+  background-color: transparent;
+  transform: translateY(-3px);
+}
+
+.back-to-top:active {
+  transform: translateY(0);
+}
+
+.footer {
+  width: 100%;
+  padding: 20px 20px;
+  text-align: center;
+  background-color: #10002b;
+  color: #fff;
+  font-size: 0.7rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer p {
+  margin: 0;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+}
 
 /* Dark Styles */
 
@@ -1121,9 +1146,18 @@ a {
   brightness(20%) contrast(104%);
 }
 
-/* Responsiveness */
+.dark .back-to-top {
+  color: #decaff;
+  border: 1px solid #decaff;
+}
+
+.dark .footer {
+  background-color: #10002b;
+  color: #fff;
+}
 
 /* Responsive Styles */
+
 @media (max-width: 768px) {
 
   .loader-quote{

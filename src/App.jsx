@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import Background from "./components/Background";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ServicesSection from "./components/ServicesSection";
 import ProjectSection from "./components/ProjectSection";

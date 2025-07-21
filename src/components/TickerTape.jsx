@@ -54,7 +54,7 @@ const TickerTape = forwardRef((props, ref) => {
 
       animationRef.current = gsap.to(tickerTrack, {
         x: -totalScrollWidth,
-        duration: 25,
+        duration: 20,
         ease: "none",
         repeat: -1,
         modifiers: {

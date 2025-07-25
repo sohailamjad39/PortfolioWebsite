@@ -69,8 +69,8 @@ function HeroSection() {
   useEffect(() => {
     // Animate robot to the right
     gsap.to(roboContRef.current, {
-      x: window.innerWidth > 768 ? 750 : 400,
-      y: 150,
+      x: window.innerWidth > 768 ? 750 : 0,
+      y: window.innerWidth > 768 ? 150 : 0,
       ease: "power1.inOut",
       scrollTrigger: {
         trigger: ".sec-one-cont",
@@ -83,8 +83,8 @@ function HeroSection() {
 
     // Animate about-cont to the left
     gsap.to(aboutContRef.current, {
-      x: window.innerWidth > 768 ? -600 : -400,
-      y: window.innerWidth > 768 ? 150 : 400,
+      x: window.innerWidth > 768 ? -600 : 0,
+      y: window.innerWidth > 768 ? 150 : 0,
       ease: "power1.inOut",
       scrollTrigger: {
         trigger: ".sec-one-cont",

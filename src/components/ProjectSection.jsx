@@ -84,6 +84,14 @@ function ProjectSection() {
           projectImg="skybook.png"
           projectLink="https://github.com/sohailamjad39/AirlineTicketBookingSystem"
         />
+
+        <ProjectCard
+          ref={(el) => (cardRefs.current[1] = el)}
+          projectName="HrFlow"
+          projectDesc="A modern HR management system built with React and Node.js, featuring employee management, attendance tracking, payroll, and leave management with a responsive, user-friendly interface."
+          projectImg="hrflow.png"
+          projectLink="https://github.com/sohailamjad39/Simple-HR-Management"
+        />
       </div>
     </section>
   );

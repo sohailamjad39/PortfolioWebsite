@@ -17,7 +17,7 @@ function ProjectSection() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 40%", 
+        start: "top 40%",
         end: "bottom 40%",
         toggleActions: "play reverse play reverse", // Play on enter, reverse on exit
         markers: false,
@@ -70,6 +70,21 @@ function ProjectSection() {
 
       <div className="project-card-container">
         <ProjectCard
+          ref={(el) => (cardRefs.current[1] = el)}
+          projectName="HrFlow"
+          projectDesc="A modern HR management system built with React and Node.js, featuring employee management, attendance tracking, payroll, and leave management with a responsive, user-friendly interface."
+          projectImg="hrflow.png"
+          projectLink="https://github.com/sohailamjad39/Simple-HR-Management"
+        />
+
+        <ProjectCard
+          ref={(el) => (cardRefs.current[1] = el)}
+          projectName="HIGH TECH ISP"
+          projectDesc="A role-based web application built with Next.js and MongoDB, featuring Stripe payment integration, OpenStreetMap support, customer billing history, subscription plans, and admin dashboards with full CRUD operations."
+          projectImg="isp.png"
+          projectLink="https://github.com/sohailamjad39/high-tech-isp/"
+        />
+        <ProjectCard
           ref={(el) => (cardRefs.current[0] = el)}
           projectName="EduTrackon"
           projectDesc="EduTrackon is a smart web app that marks student attendance using face recognition. Built with JavaScript and Node.js, it includes an admin panel and student portal to track attendance and academic progress easily."
@@ -83,14 +98,6 @@ function ProjectSection() {
           projectDesc="An easy-to-use web app where users can search flights, book tickets, and manage bookings online. It includes admin control, user login, and a database-powered backend to handle flights, passengers, and payments."
           projectImg="skybook.png"
           projectLink="https://github.com/sohailamjad39/AirlineTicketBookingSystem"
-        />
-
-        <ProjectCard
-          ref={(el) => (cardRefs.current[1] = el)}
-          projectName="HrFlow"
-          projectDesc="A modern HR management system built with React and Node.js, featuring employee management, attendance tracking, payroll, and leave management with a responsive, user-friendly interface."
-          projectImg="hrflow.png"
-          projectLink="https://github.com/sohailamjad39/Simple-HR-Management"
         />
       </div>
     </section>

@@ -13,17 +13,15 @@ const ProjectCard = forwardRef(
   ) => {
     const internalRef = useRef(null);
 
-    // Forward ref to the DOM node
     useEffect(() => {
       if (ref) ref(internalRef.current);
     }, [ref]);
 
-    // Initialize VanillaTilt only on desktop (width >= 768px)
     useEffect(() => {
       const handleInitTilt = () => {
         if (window.innerWidth >= 768 && internalRef.current) {
           VanillaTilt.init(internalRef.current, {
-            max: 15,
+            max: 10,
             speed: 400,
             glare: true,
             "max-glare": 0.05,
@@ -35,12 +33,14 @@ const ProjectCard = forwardRef(
 
       handleInitTilt();
 
-      // Optional: re-check on resize (if needed)
       const handleResize = () => {
-        // Destroy tilt instance if it exists and we're now on mobile
         if (window.innerWidth < 768 && internalRef.current?._vanillaTilt) {
           internalRef.current._vanillaTilt.destroy();
-        } else if (window.innerWidth >= 768 && internalRef.current && !internalRef.current._vanillaTilt) {
+        } else if (
+          window.innerWidth >= 768 &&
+          internalRef.current &&
+          !internalRef.current._vanillaTilt
+        ) {
           handleInitTilt();
         }
       };
@@ -49,7 +49,6 @@ const ProjectCard = forwardRef(
 
       return () => {
         window.removeEventListener("resize", handleResize);
-        // Cleanup tilt instance on unmount
         if (internalRef.current?._vanillaTilt) {
           internalRef.current._vanillaTilt.destroy();
         }
@@ -60,7 +59,13 @@ const ProjectCard = forwardRef(
       <div ref={internalRef} className="project-card">
         <div className="project-card-inner">
           <div className="project-card-image">
-            <img src={projectImg} alt={projectName} />
+            <img
+              src={projectImg}
+              alt={projectName}
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
           </div>
           <div className="project-card-info">
             <h2>{projectName}</h2>

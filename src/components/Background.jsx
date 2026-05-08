@@ -2,28 +2,13 @@ import React, { useEffect } from "react";
 
 function Background() {
   useEffect(() => {
-    // Load particles.js from CDN if not already loaded
-    if (!window.particlesJS) {
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js ";
-      script.async = true;
-      script.onload = initParticles;
-      document.body.appendChild(script);
-
-      return () => {
-        document.body.removeChild(script); // Cleanup
-      };
-    } else {
-      initParticles();
-    }
-
-    function initParticles() {
+    const initParticles = () => {
+      if (!window.particlesJS) return;
       /* eslint-disable no-undef */
       particlesJS("particles-js", {
         particles: {
           number: { value: 100, density: { enable: true, value_area: 800 } },
-          color: { value: "#ffffff" },
+          color: { value: "#888888" },
           shape: {
             type: "circle",
             stroke: { width: 0, color: "#000000" },
@@ -31,7 +16,7 @@ function Background() {
             image: { src: "img/github.svg", width: 100, height: 100 },
           },
           opacity: {
-            value: 1,
+            value: 0.7,
             random: true,
             anim: { enable: true, speed: 1, opacity_min: 0, sync: false },
           },
@@ -67,13 +52,7 @@ function Background() {
           },
           modes: {
             grab: { distance: 400, line_linked: { opacity: 1 } },
-            bubble: {
-              distance: 250,
-              size: 0,
-              duration: 2,
-              opacity: 0,
-              speed: 3,
-            },
+            bubble: { distance: 250, size: 0, duration: 2, opacity: 0, speed: 3 },
             repulse: { distance: 400, duration: 0.4 },
             push: { particles_nb: 4 },
             remove: { particles_nb: 2 },
@@ -81,6 +60,20 @@ function Background() {
         },
         retina_detect: true,
       });
+    };
+
+    if (!window.particlesJS) {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js";
+      script.async = true;
+      script.onload = initParticles;
+      document.body.appendChild(script);
+
+      return () => {
+        document.body.removeChild(script);
+      };
+    } else {
+      initParticles();
     }
   }, []);
 

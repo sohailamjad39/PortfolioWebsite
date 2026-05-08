@@ -58,13 +58,21 @@
   width: 90vw;
   max-width: 90%;
   height: 8px;
-  background: #b180ff;
+  background: rgba(177, 128, 255, 0.3);
   border-radius: 10px;
   overflow: hidden;
 }
 
+.loader-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00c9ff, #92fe9d);
+  border-radius: 10px;
+  transition: width 0.1s linear;
+}
+
 .loader-progress-container::after {
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   width: 0%;
@@ -193,7 +201,7 @@ a {
 .logo span {
   cursor: pointer;
   display: inline-block;
-  height: 2vh;    
+  height: 2vh;
   width: 2vw;
   background-size: contain;
   background-repeat: no-repeat;
@@ -286,7 +294,7 @@ a {
   transform: scale(1.1);
 }
 
-.moon img{
+.moon img {
   height: 3vh;
 }
 
@@ -389,7 +397,10 @@ a {
 
 .myName strong {
   font-weight: 700;
-  text-shadow: 0 0 10px #eecfff, 0 0 20px #dfb7ff, 0 0 30px #cf97ff,
+  text-shadow:
+    0 0 10px #eecfff,
+    0 0 20px #dfb7ff,
+    0 0 30px #cf97ff,
     0 0 40px #ca88fc;
 }
 
@@ -587,14 +598,18 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
   will-change: transform;
 }
 
 .service-row:hover .service-content {
   transform: scale(1.03);
   color: #10002b;
-  text-shadow: 0 0 10px rgb(123, 67, 255, 0.5), 0 0 20px rgb(123, 44, 191, 0.4),
+  text-shadow:
+    0 0 10px rgb(123, 67, 255, 0.5),
+    0 0 20px rgb(123, 44, 191, 0.4),
     0 0 30px #ca88fc; /* Purple glow */
 }
 
@@ -690,14 +705,16 @@ a {
 
 .project-card-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 40px;
+  width: 100%;
 }
 
 .project-card {
   width: 85%;
-  height: 300px;
+  min-height: 300px;
+  height: auto;
   margin: 4px auto;
   border-radius: 20px;
   overflow: visible;
@@ -712,7 +729,7 @@ a {
 
 .project-card-inner {
   width: 100%;
-  height: 100%;
+  min-height: 300px;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -727,10 +744,11 @@ a {
 }
 
 .project-card-image {
-  width: 55%;
-  height: 100%;
+  width: 45%;
+  min-height: 300px;
   overflow: hidden;
   border-radius: 20px 0 0 20px;
+  flex-shrink: 0;
 }
 
 .project-card-image img {
@@ -738,39 +756,42 @@ a {
   height: 100%;
   object-fit: cover;
   border-radius: 20px 0 0 20px;
+  display: block;
 }
 
 .project-card-info {
-  width: 50%;
+  width: 55%;
   padding: 4% 5% 3% 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2vh;
+  gap: 1.5vh;
   border-left: 2px solid rgba(189, 67, 255, 0.5);
   color: #10002b;
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 .project-card-info h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 0;
   color: #4a148c;
 }
 
 .project-card-info p {
-  font-size: 1.1vw;
-  line-height: 1.4;
+  font-size: 1vw;
+  line-height: 1.5;
   margin: 0;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 6;
+  -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
 }
 
 .link-to-github {
   margin-top: auto;
+  padding-top: 1rem;
 }
 
 .link-to-github a {
@@ -942,7 +963,7 @@ a {
   background-color: #10002b;
   color: #fff;
   font-size: 0.7rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .footer p {
@@ -953,12 +974,12 @@ a {
 
 /* Dark Styles */
 
-.dark body{
+.dark body {
   color: #080808;
 }
 
-.dark .background-fixed{
-    background: radial-gradient(rgb(20, 20, 20), rgb(5, 5, 5));
+.dark .background-fixed {
+  background: radial-gradient(rgb(20, 20, 20), rgb(5, 5, 5));
 }
 
 .dark .navbar {
@@ -1001,12 +1022,15 @@ a {
   color: #decaff;
 }
 
-.dark .myName strong{
+.dark .myName strong {
   color: #b180ff;
 }
 
 .dark .myName strong {
-  text-shadow: 0 0 10px #626262, 0 0 20px #1e1e1e, 0 0 30px #080808,
+  text-shadow:
+    0 0 10px #626262,
+    0 0 20px #1e1e1e,
+    0 0 30px #080808,
     0 0 40px #9d9d9d;
 }
 
@@ -1039,8 +1063,10 @@ a {
 .dark .service-row:hover .service-content {
   transform: scale(1.05);
   color: #fff;
-  text-shadow: 0 0 10px rgb(181, 150, 255), 0 0 20px rgba(200, 117, 255, 0.7),
-    0 0 30px #e9cbff; 
+  text-shadow:
+    0 0 10px rgb(181, 150, 255),
+    0 0 20px rgba(200, 117, 255, 0.7),
+    0 0 30px #e9cbff;
 }
 
 .dark .service-divider {
@@ -1049,7 +1075,7 @@ a {
 
 .dark .ticker-icon {
   filter: invert(91%) sepia(18%) saturate(434%) hue-rotate(220deg)
-  brightness(104%) contrast(90%);
+    brightness(104%) contrast(90%);
 }
 
 .dark .project-section h1 {
@@ -1065,10 +1091,7 @@ a {
 }
 
 .dark .project-card-inner {
-  background: radial-gradient(
-    rgb(25, 25, 25),
-    rgb(0, 0, 0)
-  );
+  background: radial-gradient(rgb(25, 25, 25), rgb(0, 0, 0));
 }
 
 .dark .project-card-info {
@@ -1095,10 +1118,7 @@ a {
 }
 
 .dark .contact-card {
-  background: radial-gradient(
-    rgb(25, 25, 25),
-    rgb(0, 0, 0)
-  );
+  background: radial-gradient(rgb(25, 25, 25), rgb(0, 0, 0));
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
 }
@@ -1143,7 +1163,7 @@ a {
 .dark .contact-icons a:hover img {
   transform: scale(1.2) rotate(10deg);
   filter: invert(15%) sepia(87%) saturate(7463%) hue-rotate(273deg)
-  brightness(20%) contrast(104%);
+    brightness(20%) contrast(104%);
 }
 
 .dark .back-to-top {
@@ -1159,8 +1179,7 @@ a {
 /* Responsive Styles */
 
 @media (max-width: 768px) {
-
-  .loader-quote{
+  .loader-quote {
     font-size: 0.6rem;
   }
 
@@ -1223,9 +1242,9 @@ a {
   .navbar {
     gap: 10px;
   }
-  
+
   .logo span {
-    height: 6vh;    
+    height: 6vh;
     width: 6vw;
   }
 
@@ -1245,7 +1264,7 @@ a {
   .robo-cont {
     margin-top: -80vh;
   }
-  
+
   .robo {
     height: 50%;
     margin-left: 10vw;
@@ -1375,7 +1394,9 @@ a {
   }
 
   .project-card {
-    height: 330px;
+    width: 95%;
+    height: auto;
+    min-height: unset;
     border-radius: 10px;
   }
 
@@ -1385,44 +1406,45 @@ a {
 
   .project-card-inner {
     flex-direction: column;
+    min-height: unset;
     border-radius: 10px;
   }
 
   .project-card-image {
     width: 100%;
-    height: auto;
-    border-radius: 0px;
+    height: 180px;
+    min-height: unset;
+    border-radius: 10px 10px 0 0;
   }
 
   .project-card-image img {
-    width: 100%;
-    border-radius: 0px;
+    border-radius: 10px 10px 0 0;
   }
 
   .project-card-info {
     width: 100%;
-    height: 50%;
+    height: auto;
+    padding: 5% 5% 5% 5%;
     border-left: none;
-    margin-bottom: 5%;
+    gap: 1rem;
   }
 
-  .dark .project-card-info{
+  .dark .project-card-info {
     border-left: none;
   }
 
   .project-card-info h2 {
-    font-size: 1.2rem;
-    color: #4a148c;
+    font-size: 1.1rem;
   }
 
   .project-card-info p {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
+    -webkit-line-clamp: 5;
   }
 
   .link-to-github a {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
-
   .contact-section {
     margin: 100px 0 0 0;
     flex-direction: column;
@@ -1470,7 +1492,7 @@ a {
     backdrop-filter: blur(12px);
     transition: all 0.3s ease;
   }
-  
+
   .contact-card:hover {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
   }

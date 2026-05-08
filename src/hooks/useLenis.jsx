@@ -1,39 +1,41 @@
 // hooks/useLenis.js
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
+let lenisInstance = null;
+
+export function getLenis() {
+  return lenisInstance;
+}
+
 export default function useLenis() {
+  const rafRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 2.5, // longer duration = slower animation
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+      duration: 1.4,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: "vertical",
       gestureDirection: "vertical",
       smooth: true,
-      mouseMultiplier: 0.6, // slows down mouse wheel scroll
-      touchMultiplier: 1.5, // controls touch scroll speed
+      mouseMultiplier: 1.0,
+      touchMultiplier: 1.5,
       infinite: false,
     });
 
-    // Optional: intercept wheel events for fine-tuned control
-    function onWheel(e) {
-      e.preventDefault(); // prevent default browser scroll
-      const deltaY = e.deltaY * 1.5; // scale down scroll amount
-      lenis.scrollTo(window.scrollY + deltaY);
-    }
-
-    window.addEventListener("wheel", onWheel, { passive: false });
+    lenisInstance = lenis;
 
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(raf);
 
     return () => {
-      window.removeEventListener("wheel", onWheel);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       lenis.destroy();
+      lenisInstance = null;
     };
   }, []);
 }
